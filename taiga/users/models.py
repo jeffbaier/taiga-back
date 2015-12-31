@@ -251,8 +251,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
         # Removing original photo
         if self.photo:
-            storage, path = self.photo.storage, self.photo.path
-            storage.delete(path)
+            storage, name = self.photo.storage, self.photo.name
+            storage.delete(name)
 
         self.photo = None
 

@@ -40,11 +40,10 @@ import resource
 @app.task(bind=True)
 def dump_project(self, user, project):
     path = "exports/{}/{}-{}.json".format(project.pk, project.slug, self.request.id)
-    storage_path = default_storage.path(path)
 
     try:
         url = default_storage.url(path)
-        with default_storage.open(storage_path, mode="w") as outfile:
+        with default_storage.open(path, mode="w") as outfile:
             render_project(project, outfile)
 
     except Exception:

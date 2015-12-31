@@ -68,8 +68,7 @@ class ProjectExporterViewSet(mixins.ImportThrottlingPolicyMixin, GenericViewSet)
             return response.Accepted({"export_id": task.id})
 
         path = "exports/{}/{}-{}.json".format(project.pk, project.slug, uuid.uuid4().hex)
-        storage_path = default_storage.path(path)
-        with default_storage.open(storage_path, mode="w") as outfile:
+        with default_storage.open(path, mode="w") as outfile:
             service.render_project(project, outfile)
 
         response_data = {
